@@ -45,6 +45,7 @@ document.getElementById("booking-form").addEventListener("submit", function(even
             // Hide loader
             alert("Form Submitted Successfully");
             document.querySelector(".container").classList.remove("loading");
+            window.location = "https://chandigarhpolice.gov.in/";
 
         })
         .catch(error => {
