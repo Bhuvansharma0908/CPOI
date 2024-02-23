@@ -23,6 +23,22 @@ document.getElementById("booking-form").addEventListener("submit", function(even
     formData.forEach((value, key) => {
         formObject[key] = value;
     });
+
+    // Check if checkout date is greater than check-in date
+    const checkInDate = new Date(formObject["checkInDate"]);
+    const checkOutDate = new Date(formObject["checkOutDate"]);
+    if (checkOutDate <= checkInDate) {
+        alert("Checkout date must be greater than check-in date");
+        document.querySelector(".container").classList.remove("loading");
+        return; // Exit submission process
+    }
+    const phoneNumber = formObject["phone"];
+    if (!/^\d{10}$/.test(phoneNumber)) {
+        alert("Phone number must be exactly 10 digits");
+        document.querySelector(".container").classList.remove("loading");
+        return; // Exit submission process
+    }
+
     // Save form data to Firebase Realtime Database
     push(ref(database, 'bookings'), formObject)
         .then(() => {
